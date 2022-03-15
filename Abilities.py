@@ -4,7 +4,7 @@ from Colors import Colors
 from Card import Card
 
 
-class Ability(Component):
+class AbilityCard(Component):
     def __init__(self, screen, position, size, card) -> None:
         # TODO: card type must be ability
         Component.__init__(self, position, size)
@@ -43,7 +43,7 @@ class Abilities(Component):
         height_per_ability = self.size[1] // (len(ability_cards) + 5)
         for i, ability_card in enumerate(ability_cards):
             self.abilities.append(
-                Ability(
+                AbilityCard(
                     self.screen,
                     [self.position[0], self.position[1] + height_per_ability * i],
                     [self.size[0], height_per_ability],
