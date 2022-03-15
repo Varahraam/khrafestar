@@ -1,5 +1,6 @@
 import pygame
 from Button import Button
+from HeroComponent import HeroComponent
 from StatusComponent import StatusComponent
 from ViewCard import CARD_WIDTH, CARD_HEIGHT
 from PageHandler import PageId
@@ -9,17 +10,19 @@ from SingleCardPage import SingleCardPage
 
 from Player import Player
 from Colors import Colors
+from Hero import Hero
 
+ASSETS_FOLDER = "assets/"
 
 def get_temp_cards(player, type):
     # TODO: complete this
     cards = []
     if player == 0:
         for i in range(22):
-            cards.append(Card(str(i), "is good", type, "magic.jpg"))
+            cards.append(Card(str(i), "is good", type, ASSETS_FOLDER + "magic.jpg"))
     else:
         for i in range(40):
-            cards.append(Card(str(i), "is good", type, "magic.jpg"))
+            cards.append(Card(str(i), "is good", type, ASSETS_FOLDER + "magic.jpg"))
     return cards
 
 
@@ -29,6 +32,12 @@ def get_temp_resources(player):
     else:
         return [180, 11, 3, 2]
 
+
+def get_temp_hero(player):
+    if player == 0:
+        return Hero("ghodrat","bi bak va dalir", ASSETS_FOLDER + "ghodrat.jpg")
+    else:
+        return Hero("donda","bi bak va dalir", ASSETS_FOLDER + "donda.jpg")
 
 class Game:
     WIDTH = 1200
@@ -45,6 +54,8 @@ class Game:
 
     def __init__(self) -> None:
         pygame.init()
+        pygame.mixer.music.load(ASSETS_FOLDER + "theme.mp3")  
+        pygame.mixer.music.play(-1)
         self.screen = pygame.display.set_mode((Game.WIDTH, Game.HEIGHT))
         self.player = Player()
         self.components = []
@@ -91,7 +102,7 @@ class Game:
                 self,
                 [0 + 20, (2 * (self.HEIGHT // 5)) + 20],
                 [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
-                "troops.png",
+                ASSETS_FOLDER + "troops.png",
                 PageId.TROOPS,
                 self.YOU,
             )
@@ -101,7 +112,7 @@ class Game:
                 self,
                 [2 * (self.WIDTH // 3) + 20, (2 * (self.HEIGHT // 5)) + 20],
                 [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
-                "troops.png",
+                ASSETS_FOLDER + "troops.png",
                 PageId.TROOPS,
                 self.OPPONENT,
             )
@@ -111,7 +122,7 @@ class Game:
                 self,
                 [0 + 20, (3 * (self.HEIGHT // 5)) + 20],
                 [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
-                "buildings.png",
+                ASSETS_FOLDER + "buildings.png",
                 PageId.BUILDINGS,
                 self.YOU,
             )
@@ -121,7 +132,7 @@ class Game:
                 self,
                 [2 * (self.WIDTH // 3) + 20, (3 * (self.HEIGHT // 5)) + 20],
                 [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
-                "buildings.png",
+                ASSETS_FOLDER + "buildings.png",
                 PageId.BUILDINGS,
                 self.OPPONENT,
             )
@@ -132,7 +143,7 @@ class Game:
                 self,
                 [0 + 20, (4 * (self.HEIGHT // 5)) + 20],
                 [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
-                "abilities.png",
+                ASSETS_FOLDER + "abilities.png",
                 PageId.ABILITIES,
                 self.YOU,
             )
@@ -142,7 +153,7 @@ class Game:
                 self,
                 [2 * (self.WIDTH // 3) + 20, (4 * (self.HEIGHT // 5)) + 20],
                 [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
-                "abilities.png",
+                ASSETS_FOLDER + "abilities.png",
                 PageId.ABILITIES,
                 self.OPPONENT,
             )
@@ -163,6 +174,65 @@ class Game:
                 [2 * (self.WIDTH // 3), (1 * (self.HEIGHT // 5))],
                 [self.WIDTH // 3, self.HEIGHT // 5],
                 oponent_resources_info,
+            )
+        )
+        your_hero = get_temp_hero(self.YOU)
+        self.components.append(
+            HeroComponent(
+                self,
+                [0, 0],
+                [self.WIDTH // 3, self.HEIGHT // 5],
+                your_hero
+            )
+        )
+        opponents_hero = get_temp_hero(self.OPPONENT)
+        self.components.append(
+            HeroComponent(
+                self,
+                [2 * (self.WIDTH // 3), 0],
+                [self.WIDTH // 3, self.HEIGHT // 5],
+                opponents_hero
+            )
+        )
+        # MIDDLE BUTTONS
+        self.components.append(
+            Button(
+                self,
+                [(self.WIDTH // 3) + 20, ((self.HEIGHT // 4)) + 20],
+                [(self.WIDTH // 6) - 40, (self.HEIGHT // 4) - 40],
+                ASSETS_FOLDER + "sacrifice.jpg",
+                PageId.MAIN,
+                self.YOU,
+            )
+        )
+        self.components.append(
+            Button(
+                self,
+                [(self.WIDTH // 2) + 20, ((self.HEIGHT // 4)) + 20],
+                [(self.WIDTH // 6) - 40, (self.HEIGHT // 4) - 40],
+                ASSETS_FOLDER + "troopDeck.png",
+                PageId.MAIN,
+                self.YOU,
+            )
+        )
+        self.components.append(
+            Button(
+                self,
+                [(self.WIDTH // 3) + 20, ((self.HEIGHT // 2)) + 20],
+                [(self.WIDTH // 6) - 40, (self.HEIGHT // 4) - 40],
+                ASSETS_FOLDER + "buildingDeck.png",
+                PageId.MAIN,
+                self.YOU,
+            )
+        )
+        self.components.append(
+            Button(
+                self,
+                [(self.WIDTH // 2) + 20, ((self.HEIGHT // 2)) + 20],
+                [(self.WIDTH // 6) - 40, (self.HEIGHT // 4) - 40],
+                ASSETS_FOLDER + "abilityDeck.png",
+                PageId.MAIN,
+                self.YOU,
             )
         )
         pygame.draw.line(
@@ -269,7 +339,7 @@ class Game:
                     self.HEIGHT - CARD_HEIGHT + 20,
                 ],
                 [self.WIDTH // 6, CARD_HEIGHT - 40],
-                "back.png",
+                ASSETS_FOLDER + "back.png",
                 PageId.MAIN,
                 self.OPPONENT,
             )
@@ -291,7 +361,7 @@ class Game:
                     self.HEIGHT - CARD_HEIGHT + 20,
                 ],
                 [self.WIDTH // 6, CARD_HEIGHT - 40],
-                "back.png",
+                ASSETS_FOLDER + "back.png",
                 self.prev_page[0],
                 self.prev_page[1],
             )
