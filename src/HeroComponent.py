@@ -11,9 +11,11 @@ class HeroComponent(Component, pygame.sprite.Sprite):
         Component.__init__(self, position, size)
         pygame.sprite.Sprite.__init__(self)
         self.game = game
+        self.image_width_border = 220
+        self.image_height_border = 20
         
         image = pygame.image.load(hero.image_path).convert_alpha()
-        image = pygame.transform.scale(image, [size[0], 4 * (size[1] // 5)])
+        image = pygame.transform.scale(image, [size[0] - self.image_width_border, 4 * (size[1] // 5) - self.image_height_border])
         self.image = image
         self.cards_in_row = size[0] // CARD_WIDTH
         self.hero = hero
@@ -42,8 +44,7 @@ class HeroComponent(Component, pygame.sprite.Sprite):
         self.game.screen.blit(
             self.image,
             [
-                self.position[0],
-                self.position[1],
+                self.position[0] + (self.image_width_border // 2),
+                self.position[1] + (self.image_height_border // 2),
             ],
         )
-        

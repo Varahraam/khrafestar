@@ -7,12 +7,13 @@ from PageHandler import PageId
 from Card import Card, CardTypes
 from CardsPage import CardsPage
 from SingleCardPage import SingleCardPage
+from GameStateComponent import GameStateComponent
 
 from Player import Player
 from Colors import Colors
 from Hero import Hero
 
-ASSETS_FOLDER = "assets/"
+ASSETS_FOLDER = "../assets/"
 
 def get_temp_cards(player, type):
     # TODO: complete this
@@ -25,6 +26,9 @@ def get_temp_cards(player, type):
             cards.append(Card(str(i), "is good", type, ASSETS_FOLDER + "magic.jpg"))
     return cards
 
+def get_temp_info():
+    # TODO: complete this
+    return [2, 5]
 
 def get_temp_resources(player):
     if player == 0:
@@ -35,9 +39,9 @@ def get_temp_resources(player):
 
 def get_temp_hero(player):
     if player == 0:
-        return Hero("ghodrat","bi bak va dalir", ASSETS_FOLDER + "ghodrat.jpg")
+        return Hero("kaveh","bi bak va dalir", ASSETS_FOLDER + "kaveh.jpg")
     else:
-        return Hero("donda","bi bak va dalir", ASSETS_FOLDER + "donda.jpg")
+        return Hero("zahak","bi bak va dalir", ASSETS_FOLDER + "azhi.gif")
 
 class Game:
     WIDTH = 1200
@@ -102,7 +106,7 @@ class Game:
                 self,
                 [0 + 20, (2 * (self.HEIGHT // 5)) + 20],
                 [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
-                ASSETS_FOLDER + "troops.png",
+                ASSETS_FOLDER + "troops.jpg",
                 PageId.TROOPS,
                 self.YOU,
             )
@@ -112,7 +116,7 @@ class Game:
                 self,
                 [2 * (self.WIDTH // 3) + 20, (2 * (self.HEIGHT // 5)) + 20],
                 [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
-                ASSETS_FOLDER + "troops.png",
+                ASSETS_FOLDER + "troops.jpg",
                 PageId.TROOPS,
                 self.OPPONENT,
             )
@@ -162,8 +166,8 @@ class Game:
         self.components.append(
             StatusComponent(
                 self,
-                [0, (1 * (self.HEIGHT // 5))],
-                [self.WIDTH // 3, self.HEIGHT // 5],
+                [0, (3 * (self.HEIGHT // 10))],
+                [self.WIDTH // 3, self.HEIGHT // 10],
                 your_resources_info,
             )
         )
@@ -171,8 +175,8 @@ class Game:
         self.components.append(
             StatusComponent(
                 self,
-                [2 * (self.WIDTH // 3), (1 * (self.HEIGHT // 5))],
-                [self.WIDTH // 3, self.HEIGHT // 5],
+                [2 * (self.WIDTH // 3), (3 * (self.HEIGHT // 10))],
+                [self.WIDTH // 3, self.HEIGHT // 10],
                 oponent_resources_info,
             )
         )
@@ -181,7 +185,7 @@ class Game:
             HeroComponent(
                 self,
                 [0, 0],
-                [self.WIDTH // 3, self.HEIGHT // 5],
+                [self.WIDTH // 3, 3 * (self.HEIGHT // 10)],
                 your_hero
             )
         )
@@ -190,7 +194,7 @@ class Game:
             HeroComponent(
                 self,
                 [2 * (self.WIDTH // 3), 0],
-                [self.WIDTH // 3, self.HEIGHT // 5],
+                [self.WIDTH // 3, 3 * (self.HEIGHT // 10)],
                 opponents_hero
             )
         )
@@ -235,6 +239,25 @@ class Game:
                 self.YOU,
             )
         )
+        game_info = get_temp_info()
+        self.components.append(
+            GameStateComponent(
+                self,
+                [(self.WIDTH // 3), 0],
+                [self.WIDTH // 3, (self.HEIGHT // 4)],
+                game_info
+            )
+        )
+        self.components.append(
+            Button(
+                self,
+                [(self.WIDTH // 3) + 60, 3 * (self.HEIGHT // 4) + 30],
+                [self.WIDTH // 3 - 120, (self.HEIGHT // 4) - 60],
+                ASSETS_FOLDER + "surrender.png",
+                PageId.MAIN,
+                self.YOU
+            )
+        )
         pygame.draw.line(
             self.screen,
             Colors.BLACK,
@@ -276,8 +299,8 @@ class Game:
         pygame.draw.line(
             self.screen,
             Colors.BLACK,
-            [0, self.HEIGHT // 5],
-            [self.WIDTH // 3, (self.HEIGHT // 5)],
+            [0, 3 * (self.HEIGHT // 10)],
+            [self.WIDTH // 3, 3 * (self.HEIGHT // 10)],
         )
         pygame.draw.line(
             self.screen,
@@ -301,8 +324,8 @@ class Game:
         pygame.draw.line(
             self.screen,
             Colors.BLACK,
-            [2 * (self.WIDTH // 3), self.HEIGHT // 5],
-            [self.WIDTH, (self.HEIGHT // 5)],
+            [2 * (self.WIDTH // 3), 3 * (self.HEIGHT // 10)],
+            [self.WIDTH, 3 * (self.HEIGHT // 10)],
         )
         pygame.draw.line(
             self.screen,
@@ -329,7 +352,7 @@ class Game:
         print(f"in {card_type} page!!!")
         self.screen.fill(Colors.LIGHT_RED)
         self.components.append(
-            CardsPage(self, [0, 0], [self.WIDTH, self.HEIGHT - CARD_HEIGHT], cards)
+            CardsPage(self, [0, 0], [self.WIDTH, self.HEIGHT - CARD_HEIGHT], cards, card_type)
         )
         self.components.append(
             Button(
