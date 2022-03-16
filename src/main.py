@@ -101,11 +101,13 @@ class Game:
     def draw_main_page(self):
         print("here")
         self.screen.fill(Colors.GRAY)
+        card_buttons_width_border = 80
+        card_buttons_height_border = 40
         self.components.append(
             Button(
                 self,
-                [0 + 20, (2 * (self.HEIGHT // 5)) + 20],
-                [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
+                [0 + (card_buttons_width_border // 2), (2 * (self.HEIGHT // 5)) + (card_buttons_height_border // 2)],
+                [(self.WIDTH // 3) - card_buttons_width_border, (self.HEIGHT // 5) - card_buttons_height_border],
                 ASSETS_FOLDER + "troops.jpg",
                 PageId.TROOPS,
                 self.YOU,
@@ -114,8 +116,8 @@ class Game:
         self.components.append(
             Button(
                 self,
-                [2 * (self.WIDTH // 3) + 20, (2 * (self.HEIGHT // 5)) + 20],
-                [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
+                [2 * (self.WIDTH // 3) + (card_buttons_width_border // 2), (2 * (self.HEIGHT // 5)) + (card_buttons_height_border // 2)],
+                [(self.WIDTH // 3) - card_buttons_width_border, (self.HEIGHT // 5) - card_buttons_height_border],
                 ASSETS_FOLDER + "troops.jpg",
                 PageId.TROOPS,
                 self.OPPONENT,
@@ -124,8 +126,8 @@ class Game:
         self.components.append(
             Button(
                 self,
-                [0 + 20, (3 * (self.HEIGHT // 5)) + 20],
-                [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
+                [0 + (card_buttons_width_border // 2), (3 * (self.HEIGHT // 5)) + (card_buttons_height_border // 2)],
+                [(self.WIDTH // 3) - card_buttons_width_border, (self.HEIGHT // 5) - card_buttons_height_border],
                 ASSETS_FOLDER + "buildings.png",
                 PageId.BUILDINGS,
                 self.YOU,
@@ -134,8 +136,8 @@ class Game:
         self.components.append(
             Button(
                 self,
-                [2 * (self.WIDTH // 3) + 20, (3 * (self.HEIGHT // 5)) + 20],
-                [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
+                [2 * (self.WIDTH // 3) + (card_buttons_width_border // 2), (3 * (self.HEIGHT // 5)) + (card_buttons_height_border // 2)],
+                [(self.WIDTH // 3) - card_buttons_width_border, (self.HEIGHT // 5) - card_buttons_height_border],
                 ASSETS_FOLDER + "buildings.png",
                 PageId.BUILDINGS,
                 self.OPPONENT,
@@ -145,9 +147,9 @@ class Game:
         self.components.append(
             Button(
                 self,
-                [0 + 20, (4 * (self.HEIGHT // 5)) + 20],
-                [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
-                ASSETS_FOLDER + "abilities.png",
+                [0 + (card_buttons_width_border // 2), (4 * (self.HEIGHT // 5)) + (card_buttons_height_border // 2)],
+                [(self.WIDTH // 3) - card_buttons_width_border, (self.HEIGHT // 5) - card_buttons_height_border],
+                ASSETS_FOLDER + "abilities.jpg",
                 PageId.ABILITIES,
                 self.YOU,
             )
@@ -155,9 +157,9 @@ class Game:
         self.components.append(
             Button(
                 self,
-                [2 * (self.WIDTH // 3) + 20, (4 * (self.HEIGHT // 5)) + 20],
-                [(self.WIDTH // 3) - 40, (self.HEIGHT // 5) - 40],
-                ASSETS_FOLDER + "abilities.png",
+                [2 * (self.WIDTH // 3) + (card_buttons_width_border // 2), (4 * (self.HEIGHT // 5)) + (card_buttons_height_border // 2)],
+                [(self.WIDTH // 3) - card_buttons_width_border, (self.HEIGHT // 5) - card_buttons_height_border],
+                ASSETS_FOLDER + "abilities.jpg",
                 PageId.ABILITIES,
                 self.OPPONENT,
             )
