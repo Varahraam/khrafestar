@@ -22,7 +22,7 @@ class StatusComponent(Component):
     def draw_to_board(self):
         WIDTH_BORDER = 80
         HEIGHT_BORDER = 20
-        font = pygame.font.Font("freesansbold.ttf", 55)
+        font = pygame.font.SysFont("notosansmono", 55)
         ghorbanies = font.render(
             f"ghorbani: {self.resources_info[0]}", True, Colors.BLACK
         )
@@ -30,30 +30,30 @@ class StatusComponent(Component):
             ghorbanies, [(self.size[0] // 2) - WIDTH_BORDER, (self.size[1] // 2) - HEIGHT_BORDER]
         )
 
-        farre1 = font.render(f"farre1: {self.resources_info[1]}", True, Colors.BLACK)
-        farre1 = pygame.transform.scale(
-            farre1, [(self.size[0] // 2) - WIDTH_BORDER, (self.size[1] // 2) - HEIGHT_BORDER]
+        farreh1 = font.render(f"farreh1: {self.resources_info[1]}", True, Colors.BLACK)
+        farreh1 = pygame.transform.scale(
+            farreh1, [(self.size[0] // 2) - WIDTH_BORDER, (self.size[1] // 2) - HEIGHT_BORDER]
         )
 
-        farre2 = font.render(f"farre2: {self.resources_info[2]}", True, Colors.BLACK)
-        farre2 = pygame.transform.scale(
-            farre2, [(self.size[0] // 2) - WIDTH_BORDER, (self.size[1] // 2) - HEIGHT_BORDER]
+        farreh2 = font.render(f"farreh2: {self.resources_info[2]}", True, Colors.BLACK)
+        farreh2 = pygame.transform.scale(
+            farreh2, [(self.size[0] // 2) - WIDTH_BORDER, (self.size[1] // 2) - HEIGHT_BORDER]
         )
 
-        farre3 = font.render(f"farre3: {self.resources_info[3]}", True, Colors.BLACK)
-        farre3 = pygame.transform.scale(
-            farre3, [(self.size[0] // 2) - WIDTH_BORDER, (self.size[1] // 2) - HEIGHT_BORDER]
+        farreh3 = font.render(f"farreh3: {self.resources_info[3]}", True, Colors.BLACK)
+        farreh3 = pygame.transform.scale(
+            farreh3, [(self.size[0] // 2) - WIDTH_BORDER, (self.size[1] // 2) - HEIGHT_BORDER]
         )
 
         self.game.screen.blit(ghorbanies, [self.position[0] + (WIDTH_BORDER // 2), self.position[1] + (HEIGHT_BORDER // 2)])
         self.game.screen.blit(
-            farre1, [self.position[0] + (self.size[0] // 2) + (WIDTH_BORDER // 2), self.position[1] + (HEIGHT_BORDER // 2)]
+            farreh1, [self.position[0] + (self.size[0] // 2) + (WIDTH_BORDER // 2), self.position[1] + (HEIGHT_BORDER // 2)]
         )
         self.game.screen.blit(
-            farre2, [self.position[0] + (WIDTH_BORDER // 2), self.position[1] + (self.size[1] // 2) + (HEIGHT_BORDER // 2)]
+            farreh2, [self.position[0] + (WIDTH_BORDER // 2), self.position[1] + (self.size[1] // 2) + (HEIGHT_BORDER // 2)]
         )
         self.game.screen.blit(
-            farre3,
+            farreh3,
             [
                 self.position[0] + (self.size[0] // 2) + (WIDTH_BORDER // 2),
                 self.position[1] + (self.size[1] // 2) + (HEIGHT_BORDER // 2),
